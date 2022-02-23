@@ -4,7 +4,6 @@ export const mapService = {
     panTo,
     getMap
 }
-import { appController } from "../app.controller.js"
 import { locService } from "./loc.service.js"
 import { storageService } from "./storage.service.js"
 import { utilService } from "./util.service.js"
@@ -24,7 +23,10 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                 zoom: 15
             })
             addMapListener()
-            locService.getLocs().then(locs => addMarkers(locs))
+            locService.getLocs().then(locs => {
+                if (!locs.length) return
+                addMarkers(locs)
+            })
         })
 }
 
