@@ -67,10 +67,17 @@ function addMapListener() {
         if (!locationName.trim()) return
         // gId = saveLocation(mapsMouseEvent.latLng, locationName)
         addMarker(mapsMouseEvent.latLng, locationName)
-        // debugger
-
-        console.log(mapsMouseEvent)
-        // var loc={}
+        debugger
+        var time = Date.now()
+        var location = {
+            id: utilService.makeId(10),
+            lat: mapsMouseEvent.latLng.lat(),
+            lng: mapsMouseEvent.latLng.lng(),
+            name: locationName,
+            createdAt: time,
+            updatedAt: time
+        }
+        locService.getLocs().then(locs => locs.push(location))
         // locService.createLoc(mapsMouseEvent.latLng, locationName)
         //     .then(res => loc = res)
         // locService.getLocs()
