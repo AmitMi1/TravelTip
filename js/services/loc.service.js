@@ -1,5 +1,4 @@
 import { storageService } from "./storage.service.js";
-
 export const locService = {
     getLocs,
     getLocationByName
@@ -25,9 +24,10 @@ function getLocationByName(input) {
             lat: location.location.lat,
             lng: location.location.lng,
             createdAt: Date.now(),
-        }))
-}
-
-function saveLoc(id, name, lat, lng, createdAt, updatedAt) {
-
+            updatedAt: createdAt
+        })).then(location => {
+            locs[location.id] = location;
+            storageService.save(KEY, locs);
+            return location;
+        })
 }
