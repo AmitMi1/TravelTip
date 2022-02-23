@@ -18,30 +18,34 @@ window.togglScreen = togglScreen
 
 
 function onInit() {
-    getPosition()
-        .then(pos => {
-            mapService.initMap(pos.coords.latitude, pos.coords.longitude)
-        })
-        .catch(() => console.log('Error: cannot init map'))
+    var result = loadByUrl();
+    if (!result.lat || !result.lng) {
+        getPosition()
+            .then(pos => {
+                mapService.initMap(pos.coords.latitude, pos.coords.longitude)
+            })
+            .catch(() => console.log('Error: cannot init map'))
+    } else {
+        mapService.initMap(+result.lat, +result.lng)
+    }
 }
 
-function loadMapByUrl() {
+function loadByUrl() {
     var hash = window.location.hash.substring(1);
     var result = hash.split('&').reduce(function (res, item) {
         var parts = item.split('=');
         res[parts[0]] = parts[1];
         return res;
     }, {});
-    mapService.panTo(result.lat, result.lng)
+    return result
 }
-
-
-
-function onCopyLink(event) {
-    getPosition().then(pos => {
-        window.location.hash = `lat=${pos.coords.latitude}&lng=${pos.coords.longitude}`
-        navigator.clipboard.writeText(window.location.href);
-    })
+// http: //127.0.0.1:5500/index.html#lat=32.184781&lng=34.871326
+function onCopyLink() {
+    Promise.resolve(mapService.getMap().getCenter())
+        .then(pos => {
+            window.location.hash = `lat=${pos.lat()}&lng=${pos.lng()}`
+            navigator.clipboard.writeText(window.location.href);
+        })
 }
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
 function getPosition() {
