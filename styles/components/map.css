@@ -12,6 +12,8 @@ height: 50px;
 border-radius: 20%;
 font-size: 30px;
 text-align: center;
+cursor: pointer;
+
 }
 
 input{
@@ -23,6 +25,9 @@ input{
     grid-template-columns: repeat(5,1fr);
     grid-template-rows: repeat(3,1fr);
     
+}
+
+.icon{
 }
 
 .icon0{
@@ -38,7 +43,8 @@ input{
     grid-area: 'icon3';
 }
 .icon4{
-    grid-area: 'icon4';
+    grid-column: 2/ span 1;
+    grid-row: 1/ span 1;
 }
 .btn-user-pos{
     grid-column: 2/ span 1;
@@ -52,7 +58,7 @@ input{
     grid-column: 4/ span 1;
     grid-row: 1/ span 1;
 }
-input{
+form{
     grid-column: 1/ span 5;
     grid-row: 3/ span 1;
 }
