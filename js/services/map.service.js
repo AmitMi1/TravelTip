@@ -9,6 +9,26 @@ import { locService } from "./loc.service.js"
 import { storageService } from "./storage.service.js"
 import { utilService } from "./util.service.js"
 
+const iconBase =
+    "http://maps.google.com/mapfiles/kml/shapes"
+const icons = {
+    parking: {
+        icon: iconBase + "parking_lot.png",
+    },
+    gas_station: {
+        icon: iconBase + "gas_stations.png",
+    },
+    info: {
+        icon: iconBase + "info.png",
+    },
+    danger: {
+        icon: iconBase + "caution.png"
+    },
+    airplane: {
+        icon: iconBase + "airports.png"
+    }
+}
+
 const KEY = 'locationsDb'
 
 var gMarkers = []
@@ -20,9 +40,9 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
         .then(() => {
             gMap = new google.maps.Map(
                 document.querySelector('#map'), {
-                center: { lat, lng },
-                zoom: 15
-            })
+                    center: { lat, lng },
+                    zoom: 15
+                })
             addMapListener()
             locService.getLocs().then(locs => {
                 if (!locs.length) return
@@ -31,12 +51,15 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
         })
 }
 
-function addMarker(loc, locName) {
+
+
+function addMarker(loc, locName, icon) {
     // console.log(loc)
     var marker = new google.maps.Marker({
         position: loc,
         map: gMap,
-        title: locName
+        title: locName,
+        icon
     })
     gMarkers.push(marker)
     return marker
@@ -84,7 +107,7 @@ function addMapListener() {
     gMap.addListener("click", (mapsMouseEvent) => {
         var locationName = prompt('Enter location name')
         if (!locationName.trim()) return
-        // gId = saveLocation(mapsMouseEvent.latLng, locationName)
+            // gId = saveLocation(mapsMouseEvent.latLng, locationName)
         locService.getLocByLatLng(
             mapsMouseEvent.latLng.lat(),
             mapsMouseEvent.latLng.lng(),
@@ -100,5 +123,5 @@ function addMapListener() {
         // appController.saveLoc(mapsMouseEvent.latLng, locationName)
     })
     infoWindow = new google.maps.InfoWindow()
-    // return Promise.resolve()
+        // return Promise.resolve()
 }

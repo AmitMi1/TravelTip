@@ -12,13 +12,14 @@ function getWeatherForLocation(location) {
     return axios.get(`api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lng}&appid=${KEY}`)
         .then(res => res.data.weather[0])
         .then(LocWeather => {
-            location[weather] = {
+            location.weather = {
                 status: LocWeather.main,
-                temp: utilService(LocWeather.temp),
+                temp: utilService.tempConvert(LocWeather.temp),
                 icon: LocWeather.icon
             }
             return location
         })
+        .catch(console.log('Doesnt work'))
 }
 
 function setWeatherForAll() {
