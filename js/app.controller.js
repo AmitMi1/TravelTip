@@ -10,11 +10,10 @@ window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
 window.onSearch = onSearch
 window.toggleModal = toggleModal
-window.togglScreen = togglScreen
+window.toggleScreen = toggleScreen
 window.onCopyLink = onCopyLink
 window.onDeleteLoc = onDeleteLoc
-// window.onGoLoc = onGoLoc
-window.togglScreen = togglScreen
+window.onGoLoc = onGoLoc
 
 
 function onInit() {
@@ -60,8 +59,13 @@ function onAddMarker() {
 }
 
 function onGetLocs() {
+    var elLocList = document.querySelector('.loc-list')
     locService.getLocs()
         .then(locs => {
+            if (!locs.length) {
+                elLocList.innerHTML = `<h4>No locations yet...</h4>`
+                return
+            }
             var strHTMLs = ''
             locs.forEach(loc => {
                 console.log(loc)
@@ -72,23 +76,30 @@ function onGetLocs() {
                 <span>${loc.lng}</span>
                 <span>${loc.createdAt}</span>
                 <button onclick="onDeleteLoc('${loc.id}')">Del</button>
-                
+                <button onclick="onGoLoc('${loc.id}');toggleScreen()">Go</button> 
                 </div>
                 `
             })
-            document.querySelector('.loc-list').innerHTML = strHTMLs
+            elLocList.innerHTML = strHTMLs
         })
 }
 
-{/* <button onclick="onGoLoc()">Go</button> */ }
 
 function onDeleteLoc(locId) {
+    console.log(locId)
     locService.getLocs().then(locs => {
-        var locIdx = locs.findIndex(loc => loc.id = locId)
+        var locIdx = locs.findIndex(loc => loc.id === locId)
         locs.splice(locIdx, 1)
         locService.saveToLocationDb(locs)
         onGetLocs()
         mapService.deleteMarker(locIdx)
+    })
+}
+
+function onGoLoc(locId) {
+    locService.getLocs().then(locs => {
+        var locIdx = locs.findIndex(loc => loc.id === locId)
+        mapService.panTo(locs[locIdx])
     })
 }
 
@@ -129,7 +140,7 @@ function onSearch(ev) {
         })
 }
 
-function togglScreen() {
+function toggleScreen() {
     toggleModal()
 }
 
