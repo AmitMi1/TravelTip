@@ -6,7 +6,10 @@ export const mapService = {
 }
 import { appController } from "../app.controller.js"
 import { locService } from "./loc.service.js"
+import { storageService } from "./storage.service.js"
 import { utilService } from "./util.service.js"
+
+const KEY = 'locationsDb'
 
 var gMap
 var infoWindow
@@ -21,16 +24,27 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                 zoom: 15
             })
             addMapListener()
+            locService.getLocs().then(locs => addMarkers(locs))
         })
 }
 
 function addMarker(loc, locName) {
+    // console.log(loc)
     var marker = new google.maps.Marker({
         position: loc,
         map: gMap,
         title: locName
     })
     return marker
+}
+
+function addMarkers(locs) {
+    locs.forEach(loc => {
+        addMarker({
+            lat: loc.lat,
+            lng: loc.lng,
+        }, loc.name)
+    })
 }
 
 function panTo(lat, lng) {
@@ -65,7 +79,7 @@ function addMapListener() {
         if (!locationName.trim()) return
         // gId = saveLocation(mapsMouseEvent.latLng, locationName)
         addMarker(mapsMouseEvent.latLng, locationName)
-        debugger
+        // debugger
         var time = Date.now()
         var location = {
             id: utilService.makeId(10),
@@ -75,7 +89,10 @@ function addMapListener() {
             createdAt: time,
             updatedAt: time
         }
-        locService.getLocs().then(locs => locs.push(location))
+        locService.getLocs().then(locs => {
+            locs.push(location)
+            storageService.save(KEY, locs)
+        })
         // locService.createLoc(mapsMouseEvent.latLng, locationName)
         //     .then(res => loc = res)
         // locService.getLocs()
