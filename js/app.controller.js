@@ -29,8 +29,6 @@ function loadMapByUrl() {
     mapService.panTo(result.lat, result.lng)
 }
 
-
-
 function onCopyLink(event) {
     getPosition().then(pos => {
         window.location.hash = `lat=${pos.coords.latitude}&lng=${pos.coords.longitude}`
