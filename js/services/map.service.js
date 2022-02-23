@@ -10,7 +10,7 @@ import { storageService } from "./storage.service.js"
 import { utilService } from "./util.service.js"
 
 const KEY = 'locationsDb'
-
+var gIcon = "images/default.png"
 var gMarkers = []
 var gMap
 var infoWindow
@@ -24,6 +24,7 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                     zoom: 15
                 })
             addMapListener()
+                // addIconListener()
             locService.getLocs().then(locs => {
                 if (!locs.length) return
                 addMarkers(locs)
@@ -31,9 +32,14 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
         })
 }
 
+function addIconListener() {
+    var elIcons = document.querySelectorAll('.icon')
+    elIcons.forEach(icon => (addEventListener("click", function() {
+        console.log(icon.attributes.src)
+    })))
+}
 
-
-function addMarker(loc, locName, icon) {
+function addMarker(loc, locName, icon = gIcon) {
     // console.log(loc)
     var marker = new google.maps.Marker({
         position: loc,
@@ -66,9 +72,11 @@ function panTo(lat, lng) {
 
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
-    const API_KEY = 'AIzaSyB3stN2xyUcqTxDrMmu4T_WHL7sZSIQN-s' //Private API key
+    const API_KEY = 'AIzaSyB3stN2xyUcqTxDrMmu4T_WHL7sZSIQN-s'
+        //Private API key
     var elGoogleApi = document.createElement('script')
-    elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`
+    elGoogleApi.src = `
+                    https: //maps.googleapis.com/maps/api/js?key=${API_KEY}`
     elGoogleApi.async = true;
     document.body.append(elGoogleApi)
 
