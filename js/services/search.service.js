@@ -1,4 +1,4 @@
-import storageService from 'storage.service.js'
+import locService from 'loc.service.js'
 
 export const searchService = {
     getPosByName: getLocationByName,
@@ -10,8 +10,7 @@ function getLocationByName(input) {
         .then(res => res.data.location)
 }
 
-
-
+//id,name,lat,lng,createdAt,updatedAt
 
 
 
