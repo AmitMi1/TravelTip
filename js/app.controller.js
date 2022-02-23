@@ -1,6 +1,5 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
-import { searchService } from './services/search.service'
 import { storageService } from './services/storage.service.js'
 export const appController = {
     saveLoc: onSaveLocation
@@ -85,4 +84,18 @@ function onSaveLocation(location, locationName, id) {
     // </li>
     // `
     // console.log('gid', gId)
+}
+
+function onSearch(ev) {
+    if (ev) ev.preventDefault();
+    const elInputSearch = document.querySelector('input[name=search]')
+    locService.getLocationByName(elInputSearch.value)
+        .then(location => {
+            mapService.panTo(location.lat, location.lng);
+            const pos = {
+                lat: location.lat,
+                lng: location.lng
+            }
+            mapService.addMarker(pos);
+        })
 }
