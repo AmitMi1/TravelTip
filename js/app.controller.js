@@ -1,10 +1,11 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
+import { weatherService } from './services/weather.service.js'
 import { storageService } from './services/storage.service.js'
 
 
 window.onload = onInit
-window.onAddMarker = onAddMarker
+// window.onAddMarker = onAddMarker
 // window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
@@ -53,10 +54,6 @@ function getPosition() {
     })
 }
 
-function onAddMarker() {
-    console.log('Adding a marker')
-    mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 })
-}
 
 function onGetLocs() {
     var elLocList = document.querySelector('.loc-list')
