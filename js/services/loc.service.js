@@ -3,29 +3,37 @@ export const locService = {
     getLocs,
     getLocationByName
 }
+const GEOCODE_API = 'AIzaSyCylbi9G13oxtzsUPHKLrXG_cDvKX1jjFU'
 const KEY = 'locationsDb'
 const locs = storageService.load(KEY) || {}
-
-// const locs = [
-//     { name: 'Greatplace', lat: 32.047104, lng: 34.832384 },
-//     { name: 'Neveragain', lat: 32.047201, lng: 34.832581 }
-// ]
 
 function getLocs() {
     return Promise.resolve(locs);
 }
 
+
+function createLoc(location, input) {
+    console.log(location)
+    var time = Date.now()
+    return Promise.resolve({
+        id: location.place_id,
+        lat: location.geometry.location.lat,
+        lng: location.geometry.location.lng,
+        name: input,
+        createdAt: time,
+        updatedAt: time
+    })
+}
+
 function getLocationByName(input) {
     return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${input}&key=${GEOCODE_API}`)
-        .then(res => res.data)
-        .then(location => ({
-            id: location.place_id,
-            name: input,
-            lat: location.location.lat,
-            lng: location.location.lng,
-            createdAt: Date.now(),
-            updatedAt: createdAt
-        })).then(location => {
+        .then(res => res.data.results[0])
+        .then(location => {
+            console.log(location)
+            return createLoc(location, input)
+        })
+        .then(location => {
+            console.log(location)
             locs[location.id] = location;
             storageService.save(KEY, locs);
             return location;
