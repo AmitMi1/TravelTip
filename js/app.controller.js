@@ -1,6 +1,5 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
-import { searchService } from './services/search.service'
 import { storageService } from './services/storage.service.js'
 
 window.onload = onInit;
@@ -15,7 +14,7 @@ function onInit() {
         .then(pos => {
             console.log('Map is ready')
             mapService.initMap(pos.coords.latitude, pos.coords.longitude)
-            // addMapListener()
+                // addMapListener()
         })
         .catch(() => console.log('Error: cannot init map'))
 }
@@ -74,11 +73,17 @@ function onSaveLocation(location, locationName, id) {
         title: locationName,
     })
     saveMarker(marker)
-    // if (!gId) gId = id
+        // if (!gId) gId = id
     if (id) gId = id
     document.querySelector('.location-list').innerHTML += `<li data-id=${gId}>${locationName}
     <button data-id=${gId} onclick="onRemoveLocation(this)">x</button>
     </li>
     `
     console.log('gid', gId)
+}
+
+function onSearch(ev) {
+    if (ev) ev.preventDefault();
+    const elInputSearch = document.querySelector('input[name=search]')
+    locService.getLocationByName(elInputSearch.value).then()
 }
