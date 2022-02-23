@@ -9,26 +9,6 @@ import { locService } from "./loc.service.js"
 import { storageService } from "./storage.service.js"
 import { utilService } from "./util.service.js"
 
-const iconBase =
-    "http://maps.google.com/mapfiles/kml/shapes"
-const icons = {
-    parking: {
-        icon: iconBase + "parking_lot.png",
-    },
-    gas_station: {
-        icon: iconBase + "gas_stations.png",
-    },
-    info: {
-        icon: iconBase + "info.png",
-    },
-    danger: {
-        icon: iconBase + "caution.png"
-    },
-    airplane: {
-        icon: iconBase + "airports.png"
-    }
-}
-
 const KEY = 'locationsDb'
 
 var gMarkers = []
