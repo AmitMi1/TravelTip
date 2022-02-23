@@ -9,6 +9,7 @@ window.onPanTo = onPanTo;
 window.onGetLocs = onGetLocs;
 window.onGetUserPos = onGetUserPos;
 window.onSearch = onSearch;
+window.onCopyLink = onCopyLink;
 
 function onInit() {
     getPosition()
@@ -18,6 +19,24 @@ function onInit() {
         .catch(() => console.log('Error: cannot init map'))
 }
 
+function loadMapByUrl() {
+    var hash = window.location.hash.substring(1);
+    var result = hash.split('&').reduce(function(res, item) {
+        var parts = item.split('=');
+        res[parts[0]] = parts[1];
+        return res;
+    }, {});
+    mapService.panTo(result.lat, result.lng)
+}
+
+
+
+function onCopyLink(event) {
+    getPosition().then(pos => {
+        window.location.hash = `lat=${pos.coords.latitude}&lng=${pos.coords.longitude}`
+        navigator.clipboard.writeText(window.location.href);
+    })
+}
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
 function getPosition() {
     return new Promise((resolve, reject) => {
@@ -55,10 +74,10 @@ function onGetUserPos() {
         })
 }
 
-function onPanTo() {
-    console.log('Panning the Map');
-    mapService.panTo(35.6895, 139.6917);
-}
+// function onPanTo() {
+//     console.log('Panning the Map');
+//     mapService.panTo(35.6895, 139.6917);
+// }
 
 function onSearch(ev) {
     if (ev) ev.preventDefault()
