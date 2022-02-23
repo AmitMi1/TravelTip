@@ -10,17 +10,21 @@
 
 <body>
     <div class="main-screen" onclick="toggleScreen()"></div>
-
-    <h1>TravelTip Starter</h1>
-    <div id="map" style="width: 60%; margin: 0 auto 30px; height: 400px;"></div>
-    <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>
-    <button onclick="onGetLocs();toggleScreen()" class="btn-get-locs">Get Locations</button>
-    <button onclick="onCopyLink()" class="btn-copy-link">Copy link</button>
-    <form onsubmit="onSearch(event)">
-        <input type="text" name="search" placeholder="Search the earth..." value="sakhnin">
-        <button>🔍</button>
-    </form>
-
+    <header class="main-header">
+        <h1>TravelTip Starter</h1>
+    </header>
+    <section class="map-container flex">
+        <div id="map" style="width: 60%; margin: 0 auto 30px; height: 400px;"></div>
+        <div class="btn-container grid">
+            <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>
+            <button onclick="onGetLocs();toggleScreen()" class="btn-get-locs">Get Locations</button>
+            <button onclick="onCopyLink()" class="btn-copy-link">Copy link</button>
+            <form onsubmit="onSearch(event)">
+                <input type="text" name="search" placeholder="Search the earth..." value="sakhnin">
+                <button>🔍</button>
+            </form>
+        </div>
+    </section>
     <p>You are at: <span class="user-pos"></span></p>
 
     <div class="modal flex column align-center fade-out">
