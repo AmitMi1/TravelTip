@@ -15,7 +15,7 @@ window.toggleScreen = toggleScreen
 window.onCopyLink = onCopyLink
 window.onDeleteLoc = onDeleteLoc
 window.onGoLoc = onGoLoc
-
+window.onMarkerIcon = onMarkerIcon
 
 function onInit() {
     var result = loadByUrl();
