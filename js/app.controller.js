@@ -41,6 +41,11 @@ function onGetUserPos() {
         .then(pos => {
             // console.log('User position is:', pos.coords);
             mapService.panTo(pos.coords.latitude, pos.coords.longitude);
+            var latlang = {
+                lat: pos.coords.latitude,
+                lng: pos.coords.longitude
+            }
+            mapService.addMarker(latlang)
             document.querySelector('.user-pos').innerText =
                 `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
         })
