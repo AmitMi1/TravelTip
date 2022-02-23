@@ -5,13 +5,16 @@ import { storageService } from './services/storage.service.js'
 
 window.onload = onInit
 window.onAddMarker = onAddMarker
-window.onPanTo = onPanTo
+// window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
 window.onSearch = onSearch
 window.toggleModal = toggleModal
 window.togglScreen = togglScreen
-window.onCopyLink = onCopyLink;
+window.onCopyLink = onCopyLink
+window.onDeleteLoc = onDeleteLoc
+// window.onGoLoc = onGoLoc
+window.togglScreen = togglScreen
 
 
 function onInit() {
@@ -59,15 +62,30 @@ function onGetLocs() {
             locs.forEach(loc => {
                 console.log(loc)
                 strHTMLs += `
+                <div class="loc-info">
                 <span>${loc.name}</span>
                 <span>${loc.lat}</span>
                 <span>${loc.lng}</span>
                 <span>${loc.createdAt}</span>
+                <button onclick="onDeleteLoc('${loc.id}')">Del</button>
+                
+                </div>
                 `
             })
             document.querySelector('.loc-list').innerHTML = strHTMLs
         })
-    togglScreen()
+}
+
+{/* <button onclick="onGoLoc()">Go</button> */ }
+
+function onDeleteLoc(locId) {
+    locService.getLocs().then(locs => {
+        var locIdx = locs.findIndex(loc => loc.id = locId)
+        locs.splice(locIdx, 1)
+        locService.saveToLocationDb(locs)
+        onGetLocs()
+        mapService.deleteMarker(locIdx)
+    })
 }
 
 function onGetUserPos() {
@@ -79,7 +97,7 @@ function onGetUserPos() {
                 lat: pos.coords.latitude,
                 lng: pos.coords.longitude
             }
-            mapService.addMarker(latlang)
+            // mapService.addMarker(latlang)
             document.querySelector('.user-pos').innerText =
                 `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
         })

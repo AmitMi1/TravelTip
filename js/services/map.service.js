@@ -2,7 +2,8 @@ export const mapService = {
     initMap,
     addMarker,
     panTo,
-    getMap
+    getMap,
+    deleteMarker
 }
 import { locService } from "./loc.service.js"
 import { storageService } from "./storage.service.js"
@@ -10,6 +11,7 @@ import { utilService } from "./util.service.js"
 
 const KEY = 'locationsDb'
 
+var gMarkers = []
 var gMap
 var infoWindow
 
@@ -36,7 +38,13 @@ function addMarker(loc, locName) {
         map: gMap,
         title: locName
     })
+    gMarkers.push(marker)
     return marker
+}
+
+function deleteMarker(markerIdx) {
+    gMarkers[markerIdx].setMap(null)
+    gMarkers.splice(markerIdx, 1)
 }
 
 function addMarkers(locs) {
