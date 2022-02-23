@@ -1,4 +1,3 @@
-
 export const mapService = {
     initMap,
     addMarker,
@@ -14,9 +13,9 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
             console.log('google available');
             gMap = new google.maps.Map(
                 document.querySelector('#map'), {
-                center: { lat, lng },
-                zoom: 15
-            })
+                    center: { lat, lng },
+                    zoom: 15
+                })
             console.log('Map!', gMap);
         })
 }
@@ -25,7 +24,7 @@ function addMarker(loc) {
     var marker = new google.maps.Marker({
         position: loc,
         map: gMap,
-        title: 'Hello World!'
+        title: 'Hello World!' //to change to location name
     });
     return marker;
 }
