@@ -15,14 +15,14 @@ window.onCopyLink = onCopyLink
 
 
 function onInit() {
-    if (!loadByUrl()) {
+    var result = loadByUrl();
+    if (!result.lat || !result.lng) {
         getPosition()
             .then(pos => {
                 mapService.initMap(pos.coords.latitude, pos.coords.longitude)
             })
             .catch(() => console.log('Error: cannot init map'))
     } else {
-        var result = loadByUrl()
         mapService.initMap(+result.lat, +result.lng)
     }
 }
@@ -40,7 +40,6 @@ function loadByUrl() {
 function onCopyLink() {
     Promise.resolve(mapService.getMap().getCenter())
         .then(pos => {
-            console.log(pos)
             window.location.hash = `lat=${pos.lat()}&lng=${pos.lng()}`
             navigator.clipboard.writeText(window.location.href);
         })
