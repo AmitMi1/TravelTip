@@ -17,9 +17,9 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
         .then(() => {
             gMap = new google.maps.Map(
                 document.querySelector('#map'), {
-                center: { lat, lng },
-                zoom: 15
-            })
+                    center: { lat, lng },
+                    zoom: 15
+                })
             addMapListener()
         })
 }
@@ -63,9 +63,9 @@ function addMapListener() {
     gMap.addListener("click", (mapsMouseEvent) => {
         var locationName = prompt('Enter location name')
         if (!locationName.trim()) return
-        // gId = saveLocation(mapsMouseEvent.latLng, locationName)
+            // gId = saveLocation(mapsMouseEvent.latLng, locationName)
         addMarker(mapsMouseEvent.latLng, locationName)
-        debugger
+
         var time = Date.now()
         var location = {
             id: utilService.makeId(10),
@@ -76,12 +76,12 @@ function addMapListener() {
             updatedAt: time
         }
         locService.getLocs().then(locs => locs.push(location))
-        // locService.createLoc(mapsMouseEvent.latLng, locationName)
-        //     .then(res => loc = res)
-        // locService.getLocs()
-        //     .then(locs => locs.push[loc])
-        // appController.saveLoc(mapsMouseEvent.latLng, locationName)
+            // locService.createLoc(mapsMouseEvent.latLng, locationName)
+            //     .then(res => loc = res)
+            // locService.getLocs()
+            //     .then(locs => locs.push[loc])
+            // appController.saveLoc(mapsMouseEvent.latLng, locationName)
     })
     infoWindow = new google.maps.InfoWindow()
-    // return Promise.resolve()
+        // return Promise.resolve()
 }
