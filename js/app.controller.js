@@ -4,9 +4,11 @@ import { weatherService } from './services/weather.service.js'
 import { storageService } from './services/storage.service.js'
 
 
+
+
+
+
 window.onload = onInit
-    // window.onAddMarker = onAddMarker
-    // window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
 window.onSearch = onSearch
@@ -15,7 +17,7 @@ window.toggleScreen = toggleScreen
 window.onCopyLink = onCopyLink
 window.onDeleteLoc = onDeleteLoc
 window.onGoLoc = onGoLoc
-window.onMarkerIcon = onMarkerIcon
+
 
 function onInit() {
     var result = loadByUrl();
