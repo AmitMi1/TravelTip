@@ -8,18 +8,16 @@ import { appController } from "../app.controller.js"
 
 var gMap
 var infoWindow
+
 function initMap(lat = 32.0749831, lng = 34.9120554) {
     // debugger
-    console.log('InitMap');
     return _connectGoogleApi()
         .then(() => {
-            console.log('google available');
             gMap = new google.maps.Map(
                 document.querySelector('#map'), {
-                center: { lat, lng },
-                zoom: 15
-            })
-            console.log('Map!', gMap);
+                    center: { lat, lng },
+                    zoom: 15
+                })
             addMapListener()
         })
 }
@@ -63,10 +61,9 @@ function addMapListener() {
     gMap.addListener("click", (mapsMouseEvent) => {
         var locationName = prompt('Enter location name')
         if (!locationName.trim()) return
-        // gId = saveLocation(mapsMouseEvent.latLng, locationName)
+            // gId = saveLocation(mapsMouseEvent.latLng, locationName)
         appController.saveLoc(mapsMouseEvent.latLng, locationName)
     })
     infoWindow = new google.maps.InfoWindow()
-    // return Promise.resolve()
+        // return Promise.resolve()
 }
-
