@@ -12,11 +12,10 @@ window.onSearch = onSearch;
 
 function onInit() {
     getPosition()
-        .then(pos =>
-            // console.log(pos)
-            mapService.initMap(pos.coords.latitude, pos.coords.longitude))
-        .then(() => {
+        .then(pos => {
             console.log('Map is ready')
+            mapService.initMap(pos.coords.latitude, pos.coords.longitude)
+            // addMapListener()
         })
         .catch(() => console.log('Error: cannot init map'))
 }
@@ -61,6 +60,25 @@ function onGetUserPos() {
 }
 
 function onPanTo() {
-    console.log('Panning the Map')
-    mapService.panTo(35.6895, 139.6917)
+    console.log('Panning the Map');
+    mapService.panTo(35.6895, 139.6917);
+}
+
+
+function onSaveLocation(location, locationName, id) {
+    // console.log(location.lat())
+    // return
+    marker = new google.maps.Marker({
+        position: location,
+        gMap,
+        title: locationName,
+    })
+    saveMarker(marker)
+    // if (!gId) gId = id
+    if (id) gId = id
+    document.querySelector('.location-list').innerHTML += `<li data-id=${gId}>${locationName}
+    <button data-id=${gId} onclick="onRemoveLocation(this)">x</button>
+    </li>
+    `
+    console.log('gid', gId)
 }
