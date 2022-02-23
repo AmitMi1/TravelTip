@@ -74,9 +74,13 @@ function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
     const API_KEY = 'AIzaSyB3stN2xyUcqTxDrMmu4T_WHL7sZSIQN-s'
         //Private API key
-    var elGoogleApi = document.createElement('script')
+    var elGoogleApi = document.createElement('script') <<
+        << << < HEAD
     elGoogleApi.src = `
-                    https://maps.googleapis.com/maps/api/js?key=${API_KEY}`
+                    https://maps.googleapis.com/maps/api/js?key=${API_KEY}` ===
+        === =
+        elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}` >>>
+        >>> > 54622 f06b7fc010809af8e11d6f77d030007eaf7
     elGoogleApi.async = true;
     document.body.append(elGoogleApi)
 

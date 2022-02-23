@@ -5,6 +5,55 @@
     /* align-items: center;  */
 }
 
-.btn-container{
-    /* margin-inline-start: -200px; */
+.btn-container button,
+.btn-container img{
+width: 50px;
+height: 50px;
+border-radius: 20%;
+font-size: 30px;
+text-align: center;
 }
+
+input{
+    height: 40px;
+    font-size: 20px;
+}
+
+.btn-container{
+    grid-template-columns: repeat(5,1fr);
+    grid-template-rows: repeat(3,1fr);
+    
+}
+
+.icon0{
+    
+}
+.icon1{
+    grid-area: 'icon1';
+}
+.icon2{
+    grid-area: 'icon2';
+}
+.icon3{
+    grid-area: 'icon3';
+}
+.icon4{
+    grid-area: 'icon4';
+}
+.btn-user-pos{
+    grid-column: 2/ span 1;
+    grid-row: 1/ span 1;
+}
+.btn-get-locs{
+    grid-column: 3/ span 1;
+    grid-row: 1/ span 1;
+}
+.btn-copy-link{
+    grid-column: 4/ span 1;
+    grid-row: 1/ span 1;
+}
+input{
+    grid-column: 1/ span 5;
+    grid-row: 3/ span 1;
+}
+
