@@ -2,6 +2,9 @@ import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 import { searchService } from './services/search.service'
 import { storageService } from './services/storage.service.js'
+export const appController = {
+    saveLoc: onSaveLocation
+}
 
 window.onload = onInit;
 window.onAddMarker = onAddMarker;
@@ -68,17 +71,18 @@ function onPanTo() {
 function onSaveLocation(location, locationName, id) {
     // console.log(location.lat())
     // return
+    var map = mapService.getMap()
     marker = new google.maps.Marker({
         position: location,
-        gMap,
+        map,
         title: locationName,
     })
-    saveMarker(marker)
+    // saveMarker(marker)
     // if (!gId) gId = id
-    if (id) gId = id
-    document.querySelector('.location-list').innerHTML += `<li data-id=${gId}>${locationName}
-    <button data-id=${gId} onclick="onRemoveLocation(this)">x</button>
-    </li>
-    `
-    console.log('gid', gId)
+    // if (id) gId = id
+    // document.querySelector('.location-list').innerHTML += `<li data-id=${gId}>${locationName}
+    // <button data-id=${gId} onclick="onRemoveLocation(this)">x</button>
+    // </li>
+    // `
+    // console.log('gid', gId)
 }

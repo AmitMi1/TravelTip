@@ -4,6 +4,7 @@ export const mapService = {
     panTo,
     getMap
 }
+import { appController } from "../app.controller.js"
 
 var gMap
 var infoWindow
@@ -63,7 +64,7 @@ function addMapListener() {
         var locationName = prompt('Enter location name')
         if (!locationName.trim()) return
         // gId = saveLocation(mapsMouseEvent.latLng, locationName)
-        onSaveLocation(mapsMouseEvent.latLng, locationName)
+        appController.saveLoc(mapsMouseEvent.latLng, locationName)
     })
     infoWindow = new google.maps.InfoWindow()
     // return Promise.resolve()
