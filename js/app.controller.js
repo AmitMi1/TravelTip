@@ -5,8 +5,8 @@ import { storageService } from './services/storage.service.js'
 
 
 window.onload = onInit
-// window.onAddMarker = onAddMarker
-// window.onPanTo = onPanTo
+    // window.onAddMarker = onAddMarker
+    // window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
 window.onSearch = onSearch
@@ -32,7 +32,7 @@ function onInit() {
 
 function loadByUrl() {
     var hash = window.location.hash.substring(1);
-    var result = hash.split('&').reduce(function (res, item) {
+    var result = hash.split('&').reduce(function(res, item) {
         var parts = item.split('=');
         res[parts[0]] = parts[1];
         return res;
@@ -58,6 +58,7 @@ function getPosition() {
 function onGetLocs() {
     var elLocList = document.querySelector('.loc-list')
     locService.getLocs()
+        // .then(locs => weatherService.setWeatherForAll())
         .then(locs => {
             if (!locs.length) {
                 elLocList.innerHTML = `<h4>No locations yet...</h4>`
@@ -106,10 +107,10 @@ function onGetUserPos() {
             // console.log('User position is:', pos.coords);
             mapService.panTo(pos.coords.latitude, pos.coords.longitude)
             var latlang = {
-                lat: pos.coords.latitude,
-                lng: pos.coords.longitude
-            }
-            // mapService.addMarker(latlang)
+                    lat: pos.coords.latitude,
+                    lng: pos.coords.longitude
+                }
+                // mapService.addMarker(latlang)
             document.querySelector('.user-pos').innerText =
                 `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
         })
