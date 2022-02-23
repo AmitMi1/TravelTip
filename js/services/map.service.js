@@ -38,8 +38,6 @@ function panTo(lat, lng) {
     gMap.panTo(laLatLng);
 }
 
-
-
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
     const API_KEY = 'AIzaSyB3stN2xyUcqTxDrMmu4T_WHL7sZSIQN-s' //Private API key
@@ -64,23 +62,19 @@ function addMapListener() {
         var locationName = prompt('Enter location name')
         if (!locationName.trim()) return
             // gId = saveLocation(mapsMouseEvent.latLng, locationName)
+        locService.getLocByLatLng(
+            mapsMouseEvent.latLng.lat(),
+            mapsMouseEvent.latLng.lng(),
+            locationName
+        )
         addMarker(mapsMouseEvent.latLng, locationName)
 
-        var time = Date.now()
-        var location = {
-            id: utilService.makeId(10),
-            lat: mapsMouseEvent.latLng.lat(),
-            lng: mapsMouseEvent.latLng.lng(),
-            name: locationName,
-            createdAt: time,
-            updatedAt: time
-        }
-        locService.getLocs().then(locs => locs.push(location))
-            // locService.createLoc(mapsMouseEvent.latLng, locationName)
-            //     .then(res => loc = res)
-            // locService.getLocs()
-            //     .then(locs => locs.push[loc])
-            // appController.saveLoc(mapsMouseEvent.latLng, locationName)
+
+        // locService.createLoc(mapsMouseEvent.latLng, locationName)
+        //     .then(res => loc = res)
+        // locService.getLocs()
+        //     .then(locs => locs.push[loc])
+        // appController.saveLoc(mapsMouseEvent.latLng, locationName)
     })
     infoWindow = new google.maps.InfoWindow()
         // return Promise.resolve()
