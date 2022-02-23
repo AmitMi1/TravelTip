@@ -1,0 +1,47 @@
+.modal {
+    width: 70vw;
+    height: 75vh;
+    background-color: #292929f1;
+    /* color: var(--clr3); */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+}
+
+.modal>button {
+    align-self: flex-end;
+    color: white;
+    border: 0;
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 30px;
+    margin-top: 10px;
+    margin-inline-end: 10px;
+    cursor: pointer;
+}
+
+.modal>button:hover {
+    color: rgb(175, 175, 175);
+}
+
+.modal-container>* {
+    margin: 20px;
+    text-align: center;
+}
+
+.modal-container h2 {
+    margin: 0;
+}
+
+.fade-in {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s linear 0s, opacity .5s !important;
+}
+
+.fade-out {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear 300ms, opacity 300ms;
+}

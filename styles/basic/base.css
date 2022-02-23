@@ -1,0 +1,16 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+html {
+    color: var(--clr1);
+   
+}
+
+h1,p{
+    color: var(--clr2);
+}
