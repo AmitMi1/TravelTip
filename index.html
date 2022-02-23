@@ -5,9 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TravelTip</title>
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 
 <body>
+    <div class="main-screen" onclick="togglScreen()"></div>
+
     <h1>TravelTip Starter</h1>
     <div id="map" style="width: 100%; height: 400px;"></div>
     <button onclick="onAddMarker()" class="btn-add-marker">Add Marker Speific Location</button>
@@ -20,10 +23,36 @@
     </form>
 
     <p>You are at: <span class="user-pos"></span></p>
-    <p>Locations: <span class="locs"></span></p>
+
+    <div class="modal flex column align-center fade-out">
+        <button onClick="toggleModal()">X</button>
+        <div class="modal-container flex column align-center">
+            <h2>Locations</h2>
+            <ul class="clean-list loc-list">
+
+            </ul>
+        </div>
+    </div>
+
+    <!-- <p>Locations:
+    <ul class="locs">
+
+    </ul>
+    </p> -->
 
     <script src="js/services/lib/axios.js"></script>
     <script type="module" src="js/app.controller.js"></script>
+    <script>
+        // function togglScreen() {
+        //     toggleModal()
+        // }
+
+        // function toggleModal() {
+        //     document.querySelector('.modal').classList.toggle('fade-out')
+        //     document.querySelector('.modal').classList.toggle('fade-in')
+        //     document.body.classList.toggle("modal-open")
+        // }
+    </script>
 </body>
 
 </html>

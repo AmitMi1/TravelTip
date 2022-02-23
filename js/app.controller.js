@@ -1,12 +1,14 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 
-window.onload = onInit;
-window.onAddMarker = onAddMarker;
-window.onPanTo = onPanTo;
-window.onGetLocs = onGetLocs;
-window.onGetUserPos = onGetUserPos;
-window.onSearch = onSearch;
+window.onload = onInit
+window.onAddMarker = onAddMarker
+window.onPanTo = onPanTo
+window.onGetLocs = onGetLocs
+window.onGetUserPos = onGetUserPos
+window.onSearch = onSearch
+window.toggleModal = toggleModal
+window.togglScreen = togglScreen
 
 function onInit() {
     getPosition()
@@ -24,15 +26,26 @@ function getPosition() {
 }
 
 function onAddMarker() {
-    console.log('Adding a marker');
-    mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 });
+    console.log('Adding a marker')
+    mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 })
 }
 
 function onGetLocs() {
     locService.getLocs()
         .then(locs => {
-            document.querySelector('.locs').innerText = JSON.stringify(locs)
+            var strHTMLs = ''
+            locs.forEach(loc => {
+                console.log(loc)
+                strHTMLs += `
+                <span>${loc.name}</span>
+                <span>${loc.lat}</span>
+                <span>${loc.lng}</span>
+                <span>${loc.createdAt}</span>
+                `
+            })
+            document.querySelector('.loc-list').innerHTML = strHTMLs
         })
+    togglScreen()
 }
 
 function onGetUserPos() {
@@ -70,4 +83,14 @@ function onSearch(ev) {
             }
             mapService.addMarker(pos, elInputSearch.value)
         })
+}
+
+function togglScreen() {
+    toggleModal()
+}
+
+function toggleModal() {
+    document.querySelector('.modal').classList.toggle('fade-out')
+    document.querySelector('.modal').classList.toggle('fade-in')
+    document.body.classList.toggle("modal-open")
 }
