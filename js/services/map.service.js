@@ -14,7 +14,6 @@ var gMap
 var infoWindow
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
-    // debugger
     return _connectGoogleApi()
         .then(() => {
             gMap = new google.maps.Map(
