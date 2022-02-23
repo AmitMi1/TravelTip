@@ -50,10 +50,11 @@ function createLoc(location, input, lat, lng, name) {
 
 function getLocByLatLng(lat, lng, name) {
     const locs = storageService.load(KEY) || []
-    if (locs.length <= 0) {
+    if (locs.length) {
         var idx = locs.findIndex(location => (location.lat === lat && location.lng === lng))
         if (idx >= 0) return Promise.resolve(locs[idx])
-    } else return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GEOCODE_API}`)
+    }
+    return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GEOCODE_API}`)
         .then(res => res.data.results[0])
         .then(location => {
             return createLoc(location, null, lat, lng, name)
@@ -66,10 +67,11 @@ function getLocByLatLng(lat, lng, name) {
 
 function getLocationByName(input) {
     const locs = storageService.load(KEY) || []
-    if (locs.length <= 0) {
+    if (locs.length) {
         var idx = locs.findIndex(location => location.name === input)
         if (idx >= 0) return Promise.resolve(locs[idx])
-    } else return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${input}&key=${GEOCODE_API}`)
+    }
+    return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${input}&key=${GEOCODE_API}`)
         .then(res => res.data.results[0])
         .then(location => {
             return createLoc(location, input, null, null, null)

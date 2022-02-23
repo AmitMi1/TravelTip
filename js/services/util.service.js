@@ -1,7 +1,7 @@
 'use strict'
 
 export const utilService = {
-    makeId
+    tempConvert: fToC
 }
 
 function formatDate(date) {
@@ -18,12 +18,6 @@ function formatDate(date) {
     return [year, month, day].join('-');
 }
 
-
-function makeId(length = 5) {
-    var text = '';
-    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-    for (var i = 0; i < length; i++) {
-        text += possible.charAt(Math.floor(Math.random() * possible.length))
-    }
-    return text
+function fToC(fahrenheit) {
+    return (fahrenheit - 32) * 5 / 9;
 }
