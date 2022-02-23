@@ -85,5 +85,13 @@ function onSaveLocation(location, locationName, id) {
 function onSearch(ev) {
     if (ev) ev.preventDefault();
     const elInputSearch = document.querySelector('input[name=search]')
-    locService.getLocationByName(elInputSearch.value).then()
+    locService.getLocationByName(elInputSearch.value)
+        .then(location => {
+            mapService.panTo(location.lat, location.lng);
+            const pos = {
+                lat: location.lat,
+                lng: location.lng
+            }
+            mapService.addMarker(pos);
+        })
 }
