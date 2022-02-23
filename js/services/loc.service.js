@@ -1,7 +1,9 @@
 import { storageService } from "./storage.service.js";
 export const locService = {
     getLocs,
-    getLocationByName
+    getLocationByName,
+    getLocationByName,
+    createLoc
 }
 const GEOCODE_API = 'AIzaSyCylbi9G13oxtzsUPHKLrXG_cDvKX1jjFU'
 const KEY = 'locationsDb'
