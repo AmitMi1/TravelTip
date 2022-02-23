@@ -5,6 +5,8 @@ export const mapService = {
     getMap
 }
 import { appController } from "../app.controller.js"
+import { locService } from "./loc.service.js"
+import { utilService } from "./util.service.js"
 
 var gMap
 var infoWindow
@@ -24,13 +26,13 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
         })
 }
 
-function addMarker(loc) {
+function addMarker(loc, locName) {
     var marker = new google.maps.Marker({
         position: loc,
         map: gMap,
-        title: 'Hello World!' //to change to location name
-    });
-    return marker;
+        title: locName
+    })
+    return marker
 }
 
 function panTo(lat, lng) {
@@ -46,10 +48,10 @@ function _connectGoogleApi() {
     var elGoogleApi = document.createElement('script')
     elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`
     elGoogleApi.async = true;
-    document.body.append(elGoogleApi);
+    document.body.append(elGoogleApi)
 
     return new Promise((resolve, reject) => {
-        elGoogleApi.onload = resolve;
+        elGoogleApi.onload = resolve
         elGoogleApi.onerror = () => reject('Google script failed to load')
     })
 }
@@ -64,7 +66,16 @@ function addMapListener() {
         var locationName = prompt('Enter location name')
         if (!locationName.trim()) return
         // gId = saveLocation(mapsMouseEvent.latLng, locationName)
-        appController.saveLoc(mapsMouseEvent.latLng, locationName)
+        addMarker(mapsMouseEvent.latLng, locationName)
+        // debugger
+
+        console.log(mapsMouseEvent)
+        // var loc={}
+        // locService.createLoc(mapsMouseEvent.latLng, locationName)
+        //     .then(res => loc = res)
+        // locService.getLocs()
+        //     .then(locs => locs.push[loc])
+        // appController.saveLoc(mapsMouseEvent.latLng, locationName)
     })
     infoWindow = new google.maps.InfoWindow()
     // return Promise.resolve()
