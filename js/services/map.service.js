@@ -24,7 +24,7 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                     zoom: 15
                 })
             addMapListener()
-                // addIconListener()
+            addIconListener()
             locService.getLocs().then(locs => {
                 if (!locs.length) return
                 addMarkers(locs)
@@ -76,7 +76,7 @@ function _connectGoogleApi() {
         //Private API key
     var elGoogleApi = document.createElement('script')
     elGoogleApi.src = `
-                    https: //maps.googleapis.com/maps/api/js?key=${API_KEY}`
+                    https://maps.googleapis.com/maps/api/js?key=${API_KEY}`
     elGoogleApi.async = true;
     document.body.append(elGoogleApi)
 
