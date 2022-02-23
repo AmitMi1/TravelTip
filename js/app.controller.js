@@ -37,7 +37,7 @@ function loadByUrl() {
     return result
 }
 // http: //127.0.0.1:5500/index.html#lat=32.184781&lng=34.871326
-function onCopyLink(event) {
+function onCopyLink() {
     Promise.resolve(mapService.getMap().getCenter())
         .then(pos => {
             console.log(pos)
