@@ -1,4 +1,10 @@
 .map-container{
-    width: 70vw;
-    margin: 0 auto;
+    width: 90vw;
+    margin: 50px auto;
+    justify-content: center;
+    /* align-items: center;  */
+}
+
+.btn-container{
+    /* margin-inline-start: -200px; */
 }
