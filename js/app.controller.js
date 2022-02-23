@@ -5,38 +5,45 @@ import { storageService } from './services/storage.service.js'
 
 window.onload = onInit
 window.onAddMarker = onAddMarker
-window.onPanTo = onPanTo
+    // window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
 window.onSearch = onSearch
 window.toggleModal = toggleModal
 window.togglScreen = togglScreen
-window.onCopyLink = onCopyLink;
+window.onCopyLink = onCopyLink
 
 
 function onInit() {
-    getPosition()
-        .then(pos => {
-            mapService.initMap(pos.coords.latitude, pos.coords.longitude)
-        })
-        .catch(() => console.log('Error: cannot init map'))
+    if (!loadByUrl()) {
+        getPosition()
+            .then(pos => {
+                mapService.initMap(pos.coords.latitude, pos.coords.longitude)
+            })
+            .catch(() => console.log('Error: cannot init map'))
+    } else {
+        var result = loadByUrl()
+        mapService.initMap(+result.lat, +result.lng)
+    }
 }
 
-function loadMapByUrl() {
+function loadByUrl() {
     var hash = window.location.hash.substring(1);
-    var result = hash.split('&').reduce(function (res, item) {
+    var result = hash.split('&').reduce(function(res, item) {
         var parts = item.split('=');
         res[parts[0]] = parts[1];
         return res;
     }, {});
-    mapService.panTo(result.lat, result.lng)
+    return result
 }
-
+// http: //127.0.0.1:5500/index.html#lat=32.184781&lng=34.871326
 function onCopyLink(event) {
-    getPosition().then(pos => {
-        window.location.hash = `lat=${pos.coords.latitude}&lng=${pos.coords.longitude}`
-        navigator.clipboard.writeText(window.location.href);
-    })
+    Promise.resolve(mapService.getMap().getCenter())
+        .then(pos => {
+            console.log(pos)
+            window.location.hash = `lat=${pos.lat()}&lng=${pos.lng()}`
+            navigator.clipboard.writeText(window.location.href);
+        })
 }
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
 function getPosition() {
