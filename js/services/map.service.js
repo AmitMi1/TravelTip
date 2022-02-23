@@ -1,12 +1,14 @@
 export const mapService = {
     initMap,
     addMarker,
-    panTo
+    panTo,
+    getMap
 }
 
-var gMap;
-
+var gMap
+var infoWindow
 function initMap(lat = 32.0749831, lng = 34.9120554) {
+    // debugger
     console.log('InitMap');
     return _connectGoogleApi()
         .then(() => {
@@ -17,6 +19,7 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                 zoom: 15
             })
             console.log('Map!', gMap);
+            addMapListener()
         })
 }
 
@@ -49,3 +52,20 @@ function _connectGoogleApi() {
         elGoogleApi.onerror = () => reject('Google script failed to load')
     })
 }
+
+function getMap() {
+    return gMap
+}
+
+function addMapListener() {
+    // var map = mapService.getMap()
+    gMap.addListener("click", (mapsMouseEvent) => {
+        var locationName = prompt('Enter location name')
+        if (!locationName.trim()) return
+        // gId = saveLocation(mapsMouseEvent.latLng, locationName)
+        onSaveLocation(mapsMouseEvent.latLng, locationName)
+    })
+    infoWindow = new google.maps.InfoWindow()
+    // return Promise.resolve()
+}
+
