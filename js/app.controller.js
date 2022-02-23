@@ -1,6 +1,7 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 import { searchService } from './services/search.service'
+import { storageService } from './services/storage.service.js'
 
 window.onload = onInit;
 window.onAddMarker = onAddMarker;
@@ -9,11 +10,14 @@ window.onGetLocs = onGetLocs;
 window.onGetUserPos = onGetUserPos;
 
 function onInit() {
-    mapService.initMap()
+    getPosition()
+        .then(pos =>
+            // console.log(pos)
+            mapService.initMap(pos.coords.latitude, pos.coords.longitude))
         .then(() => {
-            console.log('Map is ready');
+            console.log('Map is ready')
         })
-        .catch(() => console.log('Error: cannot init map'));
+        .catch(() => console.log('Error: cannot init map'))
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
