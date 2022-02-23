@@ -15,16 +15,13 @@ window.onSearch = onSearch;
 function onInit() {
     getPosition()
         .then(pos => {
-            console.log('Map is ready')
             mapService.initMap(pos.coords.latitude, pos.coords.longitude)
-            // addMapListener()
         })
         .catch(() => console.log('Error: cannot init map'))
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
 function getPosition() {
-    console.log('Getting Pos');
     return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject)
     })
@@ -38,7 +35,6 @@ function onAddMarker() {
 function onGetLocs() {
     locService.getLocs()
         .then(locs => {
-            console.log('Locations:', locs)
             document.querySelector('.locs').innerText = JSON.stringify(locs)
         })
 }
@@ -72,18 +68,18 @@ function onSaveLocation(location, locationName, id) {
     // return
     var map = mapService.getMap()
     marker = new google.maps.Marker({
-        position: location,
-        map,
-        title: locationName,
-    })
-    // saveMarker(marker)
-    // if (!gId) gId = id
-    // if (id) gId = id
-    // document.querySelector('.location-list').innerHTML += `<li data-id=${gId}>${locationName}
-    // <button data-id=${gId} onclick="onRemoveLocation(this)">x</button>
-    // </li>
-    // `
-    // console.log('gid', gId)
+            position: location,
+            map,
+            title: locationName,
+        })
+        // saveMarker(marker)
+        // if (!gId) gId = id
+        // if (id) gId = id
+        // document.querySelector('.location-list').innerHTML += `<li data-id=${gId}>${locationName}
+        // <button data-id=${gId} onclick="onRemoveLocation(this)">x</button>
+        // </li>
+        // `
+        // console.log('gid', gId)
 }
 
 function onSearch(ev) {
