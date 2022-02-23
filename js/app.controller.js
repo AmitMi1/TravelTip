@@ -1,11 +1,12 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
+import { weatherService } from './services/weather.service.js'
 import { storageService } from './services/storage.service.js'
 
 
 window.onload = onInit
-window.onAddMarker = onAddMarker
-// window.onPanTo = onPanTo
+    // window.onAddMarker = onAddMarker
+    // window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
 window.onSearch = onSearch
@@ -13,7 +14,7 @@ window.toggleModal = toggleModal
 window.togglScreen = togglScreen
 window.onCopyLink = onCopyLink
 window.onDeleteLoc = onDeleteLoc
-// window.onGoLoc = onGoLoc
+    // window.onGoLoc = onGoLoc
 window.togglScreen = togglScreen
 
 
@@ -32,7 +33,7 @@ function onInit() {
 
 function loadByUrl() {
     var hash = window.location.hash.substring(1);
-    var result = hash.split('&').reduce(function (res, item) {
+    var result = hash.split('&').reduce(function(res, item) {
         var parts = item.split('=');
         res[parts[0]] = parts[1];
         return res;
@@ -54,10 +55,6 @@ function getPosition() {
     })
 }
 
-function onAddMarker() {
-    console.log('Adding a marker')
-    mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 })
-}
 
 function onGetLocs() {
     locService.getLocs()
@@ -80,11 +77,11 @@ function onGetLocs() {
         })
 }
 
-{/* <button onclick="onGoLoc()">Go</button> */ }
+{ /* <button onclick="onGoLoc()">Go</button> */ }
 
 function onDeleteLoc(locId) {
     locService.getLocs().then(locs => {
-        var locIdx = locs.findIndex(loc => loc.id = locId)
+        var locIdx = locs.findIndex(loc => loc.id === locId)
         locs.splice(locIdx, 1)
         locService.saveToLocationDb(locs)
         onGetLocs()
@@ -98,10 +95,10 @@ function onGetUserPos() {
             // console.log('User position is:', pos.coords);
             mapService.panTo(pos.coords.latitude, pos.coords.longitude)
             var latlang = {
-                lat: pos.coords.latitude,
-                lng: pos.coords.longitude
-            }
-            // mapService.addMarker(latlang)
+                    lat: pos.coords.latitude,
+                    lng: pos.coords.longitude
+                }
+                // mapService.addMarker(latlang)
             document.querySelector('.user-pos').innerText =
                 `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
         })
