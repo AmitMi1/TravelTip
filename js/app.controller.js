@@ -7,7 +7,7 @@ export const cont = {
 }
 
 
-
+var gIcon = "images/default.png"
 
 
 window.onload = onInit
@@ -21,7 +21,7 @@ window.onDeleteLoc = onDeleteLoc
 window.onGoLoc = onGoLoc
 window.onIconClick = onIconClick
 
-var gIcon = "images/default.png"
+
 
 function onInit() {
     var result = loadByUrl();
@@ -37,11 +37,11 @@ function onInit() {
 }
 
 function getIcon() {
-    console.log(gIcon)
     return gIcon
 }
 
 function onIconClick(elImg) {
+    // console.log(typeof(elImg.id))
     gIcon = elImg.id
 }
 
@@ -142,14 +142,14 @@ function onGetUserPos() {
 function onSearch(ev) {
     if (ev) ev.preventDefault()
     const elInputSearch = document.querySelector('input[name=search]')
-    locService.getLocationByName(elInputSearch.value, getIcon())
+    locService.getLocationByName(elInputSearch.value, gIcon)
         .then(location => {
             mapService.panTo(location.lat, location.lng)
             const pos = {
                 lat: location.lat,
                 lng: location.lng
             }
-            mapService.addMarker(pos, elInputSearch.value)
+            mapService.addMarker(pos, elInputSearch.value, gIcon)
         })
 }
 
