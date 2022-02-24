@@ -6,11 +6,12 @@ export const mapService = {
     deleteMarker
 }
 import { locService } from "./loc.service.js"
+import { cont } from "../app.controller.js"
 import { storageService } from "./storage.service.js"
 import { utilService } from "./util.service.js"
 
 const KEY = 'locationsDb'
-var gIcon = "images/default.png"
+
 var gMarkers = []
 var gMap
 var infoWindow
@@ -20,11 +21,10 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
         .then(() => {
             gMap = new google.maps.Map(
                 document.querySelector('#map'), {
-                center: { lat, lng },
-                zoom: 15
-            })
+                    center: { lat, lng },
+                    zoom: 15
+                })
             addMapListener()
-            // addIconListener()
             locService.getLocs().then(locs => {
                 if (!locs.length) return
                 addMarkers(locs)
@@ -32,22 +32,13 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
         })
 }
 
-function addIconListener() {
-    var elIcons = document.querySelectorAll('.icon')
-    elIcons.forEach(icon => {
-        icon.addEventListener("click", function () {
-            gIcon = icon.src
-        })
-    })
-}
-
-function addMarker(loc, locName, loc.icon) {
+function addMarker(loc, locName, icon) {
     // console.log(loc)
     var marker = new google.maps.Marker({
         position: loc,
         map: gMap,
         title: locName,
-        icon: loc.icon
+        icon
     })
     gMarkers.push(marker)
     return marker
@@ -63,7 +54,7 @@ function addMarkers(locs) {
         addMarker({
             lat: loc.lat,
             lng: loc.lng,
-        }, loc.name, loc.icon)
+        }, loc.name, cont.getIcon())
     })
 }
 
@@ -75,7 +66,7 @@ function panTo(lat, lng) {
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
     const API_KEY = 'AIzaSyB3stN2xyUcqTxDrMmu4T_WHL7sZSIQN-s'
-    //Private API key
+        //Private API key
     var elGoogleApi = document.createElement('script')
     elGoogleApi.src = `
                     https://maps.googleapis.com/maps/api/js?key=${API_KEY}`
@@ -96,13 +87,17 @@ function addMapListener() {
     // var map = mapService.getMap()
     gMap.addListener("click", (mapsMouseEvent) => {
         var locationName = prompt('Enter location name')
-        if (!locationName.trim()) return
-        // gId = saveLocation(mapsMouseEvent.latLng, locationName)
-        locService.getLocByLatLng(
-            mapsMouseEvent.latLng.lat(),
-            mapsMouseEvent.latLng.lng(),
-            locationName
-        )
+        if (!locationName.trim()) return << << << < HEAD
+            // gId = saveLocation(mapsMouseEvent.latLng, locationName)
+        locService.getLocByLatLng(mapsMouseEvent.latLng.lat(), mapsMouseEvent.latLng.lng(), locationName, cont.getIcon()) ===
+            === =
+            // gId = saveLocation(mapsMouseEvent.latLng, locationName)
+            locService.getLocByLatLng(
+                mapsMouseEvent.latLng.lat(),
+                mapsMouseEvent.latLng.lng(),
+                locationName
+            ) >>>
+            >>> > ee22ed56586a49f7673bbf6ecf563b806553379c
         addMarker(mapsMouseEvent.latLng, locationName)
 
 
@@ -113,5 +108,5 @@ function addMapListener() {
         // appController.saveLoc(mapsMouseEvent.latLng, locationName)
     })
     infoWindow = new google.maps.InfoWindow()
-    // return Promise.resolve()
+        // return Promise.resolve()
 }
