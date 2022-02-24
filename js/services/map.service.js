@@ -9,6 +9,7 @@ import { locService } from "./loc.service.js"
 import { cont } from "../app.controller.js"
 import { storageService } from "./storage.service.js"
 import { utilService } from "./util.service.js"
+import { weatherService } from "./weather.service.js"
 
 const KEY = 'locationsDb'
 // var gIcon = "images/default.png"
@@ -28,6 +29,7 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
             // addIconListener()
             locService.getLocs().then(locs => {
                 if (!locs.length) return
+                // weatherService.setWeatherForAll()
                 addMarkers(locs)
             })
         })
@@ -50,6 +52,7 @@ function addMarker(loc, locName, icon) {
         icon: icon
     })
     gMarkers.push(marker)
+    // weatherService.setWeatherForAll()
     return marker
 }
 

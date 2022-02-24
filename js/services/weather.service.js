@@ -9,7 +9,7 @@ export const weatherService = {
 const KEY = '5a14a6a860e9d68fa91c90933c51e1e3'
 
 function getWeatherForLocation(location) {
-    return axios.get(`api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lng}&appid=${KEY}`)
+    return axios.get(`http://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lng}&appid=${KEY}`)
         .then(res => res.data.weather[0])
         .then(LocWeather => {
             location.weather = {
@@ -25,12 +25,12 @@ function getWeatherForLocation(location) {
 function setWeatherForAll() {
     locService.getLocs()
         .then(locs => {
-                locs.forEach(loc => getWeatherForLocation(loc))
-                    .then(locs => {
-                        locService.saveToLocationDb(locs)
-                        return locs
-                    })
-            }
+            locs.forEach(loc => getWeatherForLocation(loc))
+                .then(locs => {
+                    locService.saveToLocationDb(locs)
+                    return locs
+                })
+        }
 
         )
 }
