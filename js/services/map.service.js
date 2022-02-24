@@ -42,13 +42,13 @@ function addIconListener() {
     })
 }
 
-function addMarker(loc, locName) {
+function addMarker(loc, locName, icon) {
     // console.log(loc)
     var marker = new google.maps.Marker({
         position: loc,
         map: gMap,
         title: locName,
-        // icon: icon
+        icon: icon
     })
     gMarkers.push(marker)
     return marker
