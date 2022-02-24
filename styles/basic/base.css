@@ -6,19 +6,13 @@
 
 body {
   background-color: var(--clr4);
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
 }
 
 html {
     color: var(--clr1);
     font-family: sans-serif;
-   
 }
-
-p{
-    color: var(--clr2);
-}
-
 
 ::-webkit-scrollbar {
     width: 10px;
