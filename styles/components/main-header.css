@@ -1,7 +1,7 @@
 .main-header {
     height: 100px;
     background-color: var(--clr2);
-    /* position: fixed; */
-    /* width: 100%; */
-    /* color:var(--clr1); */
+   text-align: center;
+   line-height: 100px;
+   font-family: sans-serif;
 }

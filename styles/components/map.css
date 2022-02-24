@@ -1,10 +1,13 @@
 .map-container{
-    width: 90vw;
-    margin: 50px auto;
+    /* width: 100vw; */
+    margin: 20px auto;
     justify-content: center;
     /* align-items: center;  */
-    box-shadow: -1px -1px 38px 14px rgba(0,0,0,0.75);
+}
 
+#map{
+    box-shadow: -1px -1px 38px 14px rgba(0,0,0,0.75);
+    border-radius: 10px;
 }
 
 .btn-container button,
@@ -21,7 +24,7 @@ margin: 0 auto;
 
 input{
     height: 40px;
-    font-size: 20px;
+    font-size: 17px;
 }
 
 .btn-container{
@@ -32,10 +35,8 @@ input{
     padding: 10px;
     border-radius: 10px;
     box-shadow: -1px -1px 38px 14px rgba(0,0,0,0.75);
+    margin: 50px;
 
-}
-
-.icon{
 }
 
 .icon0{

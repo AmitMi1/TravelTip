@@ -6,6 +6,7 @@
 
 body {
   background-color: var(--clr4);
+  overflow-y: hidden;
 }
 
 html {
