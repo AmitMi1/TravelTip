@@ -3,6 +3,8 @@
     margin: 50px auto;
     justify-content: center;
     /* align-items: center;  */
+    box-shadow: -1px -1px 38px 14px rgba(0,0,0,0.75);
+
 }
 
 .btn-container button,
@@ -13,6 +15,7 @@ border-radius: 20%;
 font-size: 30px;
 text-align: center;
 cursor: pointer;
+margin: 0 auto;
 
 }
 
@@ -22,44 +25,60 @@ input{
 }
 
 .btn-container{
-    grid-template-columns: repeat(5,1fr);
-    grid-template-rows: repeat(3,1fr);
-    
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(4,1fr);
+    gap: 10px;
+    background-color: var(--clr3);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: -1px -1px 38px 14px rgba(0,0,0,0.75);
+
 }
 
 .icon{
 }
 
 .icon0{
-    
+    grid-column: 1/ span 1;
+    grid-row: 1/ span 1;
 }
 .icon1{
-    grid-area: 'icon1';
+    grid-column: 2/ span 1;
+    grid-row: 1/ span 1;
 }
 .icon2{
-    grid-area: 'icon2';
-}
-.icon3{
-    grid-area: 'icon3';
-}
-.icon4{
-    grid-column: 2/ span 1;
-    grid-row: 1/ span 1;
-}
-.btn-user-pos{
-    grid-column: 2/ span 1;
-    grid-row: 1/ span 1;
-}
-.btn-get-locs{
     grid-column: 3/ span 1;
     grid-row: 1/ span 1;
 }
-.btn-copy-link{
-    grid-column: 4/ span 1;
-    grid-row: 1/ span 1;
+.icon3{
+    grid-column: 1/ span 1;
+    grid-row: 2/ span 1;
 }
-form{
-    grid-column: 1/ span 5;
+.icon4{
+    grid-column: 2/ span 1;
+    grid-row: 2/ span 1;
+}
+.icon5{
+    grid-column: 3/ span 1;
+    grid-row: 2/ span 1;
+}
+.btn-user-pos{
+    grid-column: 2/ span 1;
     grid-row: 3/ span 1;
 }
+.btn-get-locs{
+    grid-column: 1/ span 1;
+    grid-row: 3/ span 1;
+}
+.btn-copy-link{
+    grid-column: 3/ span 1;
+    grid-row: 3/ span 1;
+}
+form{
+    grid-column: 1/ span 3;
+    grid-row: 4/ span 1;
+}
 
+input{
+    border-radius: 5px;
+}
