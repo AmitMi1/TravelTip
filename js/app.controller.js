@@ -60,6 +60,7 @@ function onCopyLink() {
         .then(pos => {
             window.location.hash = `lat=${pos.lat()}&lng=${pos.lng()}`
             navigator.clipboard.writeText(window.location.href);
+            flashMsg('Link copied to clipboard')
         })
 }
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
