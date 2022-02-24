@@ -47,7 +47,7 @@ function onIconClick(elImg) {
 
 function loadByUrl() {
     var hash = window.location.hash.substring(1);
-    var result = hash.split('&').reduce(function(res, item) {
+    var result = hash.split('&').reduce(function (res, item) {
         var parts = item.split('=');
         res[parts[0]] = parts[1];
         return res;
@@ -82,12 +82,15 @@ function onGetLocs() {
             var strHTMLs = ''
             locs.forEach(loc => {
                 console.log(loc)
+                var date = new Date(loc.createdAt)
+                date.toDateString()
+                // + ' ' + Date(loc.createdAt).toLocaleTimeString()
                 strHTMLs += `
                 <div class="loc-info">
                 <span>${loc.name}</span>
                 <span>${loc.lat}</span>
                 <span>${loc.lng}</span>
-                <span>${loc.createdAt}</span>
+                <span>${date}</span>
                 <button onclick="onDeleteLoc('${loc.id}')">Del</button>
                 <button onclick="onGoLoc('${loc.id}');toggleScreen()">Go</button> 
                 </div>
@@ -122,10 +125,10 @@ function onGetUserPos() {
             // console.log('User position is:', pos.coords);
             mapService.panTo(pos.coords.latitude, pos.coords.longitude)
             var latlang = {
-                    lat: pos.coords.latitude,
-                    lng: pos.coords.longitude
-                }
-                // mapService.addMarker(latlang)
+                lat: pos.coords.latitude,
+                lng: pos.coords.longitude
+            }
+            // mapService.addMarker(latlang)
             document.querySelector('.user-pos').innerText =
                 `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
         })
