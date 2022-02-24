@@ -6,6 +6,7 @@ export const mapService = {
     deleteMarker
 }
 import { locService } from "./loc.service.js"
+import { cont } from "../app.controller.js"
 import { storageService } from "./storage.service.js"
 import { utilService } from "./util.service.js"
 
@@ -20,11 +21,11 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
         .then(() => {
             gMap = new google.maps.Map(
                 document.querySelector('#map'), {
-                center: { lat, lng },
-                zoom: 15
-            })
+                    center: { lat, lng },
+                    zoom: 15
+                })
             addMapListener()
-            // addIconListener()
+                // addIconListener()
             locService.getLocs().then(locs => {
                 if (!locs.length) return
                 addMarkers(locs)
@@ -35,7 +36,7 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
 function addIconListener() {
     var elIcons = document.querySelectorAll('.icon')
     elIcons.forEach(icon => {
-        icon.addEventListener("click", function () {
+        icon.addEventListener("click", function() {
             gIcon = icon.src
         })
     })
@@ -75,7 +76,7 @@ function panTo(lat, lng) {
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
     const API_KEY = 'AIzaSyB3stN2xyUcqTxDrMmu4T_WHL7sZSIQN-s'
-    //Private API key
+        //Private API key
     var elGoogleApi = document.createElement('script')
     elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`
     elGoogleApi.async = true;
@@ -96,7 +97,7 @@ function addMapListener() {
     gMap.addListener("click", (mapsMouseEvent) => {
         var locationName = prompt('Enter location name')
         if (!locationName.trim()) return
-        // gId = saveLocation(mapsMouseEvent.latLng, locationName)
+            // gId = saveLocation(mapsMouseEvent.latLng, locationName)
         locService.getLocByLatLng(mapsMouseEvent.latLng.lat(), mapsMouseEvent.latLng.lng(), locationName, cont.getIcon())
         addMarker(mapsMouseEvent.latLng, locationName, cont.getIcon())
 
@@ -108,5 +109,5 @@ function addMapListener() {
         // appController.saveLoc(mapsMouseEvent.latLng, locationName)
     })
     infoWindow = new google.maps.InfoWindow()
-    // return Promise.resolve()
+        // return Promise.resolve()
 }
