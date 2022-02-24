@@ -11,7 +11,7 @@ import { storageService } from "./storage.service.js"
 import { utilService } from "./util.service.js"
 
 const KEY = 'locationsDb'
-var gIcon = "images/default.png"
+    // var gIcon = "images/default.png"
 var gMarkers = []
 var gMap
 var infoWindow
@@ -42,13 +42,13 @@ function addIconListener() {
     })
 }
 
-function addMarker(loc, locName) {
+function addMarker(loc, locName, icon) {
     // console.log(loc)
     var marker = new google.maps.Marker({
         position: loc,
         map: gMap,
         title: locName,
-        // icon: icon
+        icon: icon
     })
     gMarkers.push(marker)
     return marker
