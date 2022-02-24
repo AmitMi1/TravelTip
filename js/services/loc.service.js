@@ -45,7 +45,8 @@ function createLoc(location, input, lat, lng, name, icon) {
         lng: location.geometry.location.lng,
         name: input,
         createdAt: time,
-        updatedAt: time
+        updatedAt: time,
+        icon
     })
 }
 

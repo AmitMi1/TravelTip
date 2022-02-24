@@ -97,12 +97,8 @@ function addMapListener() {
         var locationName = prompt('Enter location name')
         if (!locationName.trim()) return
         // gId = saveLocation(mapsMouseEvent.latLng, locationName)
-        locService.getLocByLatLng(
-            mapsMouseEvent.latLng.lat(),
-            mapsMouseEvent.latLng.lng(),
-            locationName
-        )
-        addMarker(mapsMouseEvent.latLng, locationName)
+        locService.getLocByLatLng(mapsMouseEvent.latLng.lat(), mapsMouseEvent.latLng.lng(), locationName, cont.getIcon())
+        addMarker(mapsMouseEvent.latLng, locationName, cont.getIcon())
 
 
         // locService.createLoc(mapsMouseEvent.latLng, locationName)
