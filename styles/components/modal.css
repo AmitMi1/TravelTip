@@ -1,13 +1,15 @@
 .modal {
     width: 70vw;
     height: 75vh;
-    background-color: #292929f1;
-    /* color: var(--clr3); */
+    background-color: var(--clr2);
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 3;
+    overflow-y: scroll;
+    padding:0px 20px;
+    border-radius: 10px;
 }
 
 .modal>button {
@@ -17,7 +19,6 @@
     background-color: rgba(0, 0, 0, 0);
     font-size: 30px;
     margin-top: 10px;
-    margin-inline-end: 10px;
     cursor: pointer;
 }
 
@@ -44,4 +45,43 @@
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s linear 300ms, opacity 300ms;
+}
+
+.modal h2{
+    margin-bottom: 30px;
+}
+
+.loc-info{
+    margin-bottom: 20px;
+    padding: 10px;
+    border-bottom: 1px solid black;
+}
+
+.loc-info .name{
+    font-weight:bolder;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.loc-info button{
+    font-size: 25px;
+    margin: 10px 5px 0px;
+    width: 40px;
+    height: 40px;
+    border-radius: 20%;
+}
+
+.user-msg {
+    position: fixed;
+    bottom: -100px;
+    right: 10px;
+    background-color: #111;
+    padding: 10px;
+    z-index: 10;
+    border-radius: 10px;
+}
+
+.user-msg.open {
+    bottom: 10px;
+    transition: bottom 0.5s;
 }

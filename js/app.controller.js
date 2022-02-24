@@ -3,7 +3,8 @@ import { mapService } from './services/map.service.js'
 import { weatherService } from './services/weather.service.js'
 import { storageService } from './services/storage.service.js'
 export const cont = {
-    getIcon
+    getIcon,
+    flashMsg
 }
 
 
@@ -41,7 +42,6 @@ function getIcon() {
 }
 
 function onIconClick(elImg) {
-    // console.log(typeof(elImg.id))
     gIcon = elImg.id
 }
 
@@ -73,7 +73,6 @@ function getPosition() {
 function onGetLocs() {
     var elLocList = document.querySelector('.loc-list')
     locService.getLocs()
-        // .then(locs => weatherService.setWeatherForAll())
         .then(locs => {
             if (!locs.length) {
                 elLocList.innerHTML = `<h4>No locations yet...</h4>`
@@ -81,18 +80,20 @@ function onGetLocs() {
             }
             var strHTMLs = ''
             locs.forEach(loc => {
-                console.log(loc)
                 var date = new Date(loc.createdAt)
                 date.toDateString()
-                // + ' ' + Date(loc.createdAt).toLocaleTimeString()
                 strHTMLs += `
                 <div class="loc-info">
-                <span>${loc.name}</span>
+                <div class="name">${loc.name}</div>
+                <div>
                 <span>${loc.lat}</span>
                 <span>${loc.lng}</span>
+                </div>
                 <span>${date}</span>
-                <button onclick="onDeleteLoc('${loc.id}')">Del</button>
-                <button onclick="onGoLoc('${loc.id}');toggleScreen()">Go</button> 
+                <div>
+                <button onclick="onDeleteLoc('${loc.id}')"><i class="fa-solid fa-ban"></i></button>
+                <button onclick="onGoLoc('${loc.id}');toggleScreen()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button> 
+                </div>
                 </div>
                 `
             })
@@ -102,13 +103,14 @@ function onGetLocs() {
 
 
 function onDeleteLoc(locId) {
-    console.log(locId)
     locService.getLocs().then(locs => {
         var locIdx = locs.findIndex(loc => loc.id === locId)
+        flashMsg(`Location ${locs[locIdx].name} deleted`)
         locs.splice(locIdx, 1)
         locService.saveToLocationDb(locs)
         onGetLocs()
         mapService.deleteMarker(locIdx)
+
     })
 }
 
@@ -122,13 +124,11 @@ function onGoLoc(locId) {
 function onGetUserPos() {
     getPosition()
         .then(pos => {
-            // console.log('User position is:', pos.coords);
             mapService.panTo(pos.coords.latitude, pos.coords.longitude)
             var latlang = {
                 lat: pos.coords.latitude,
                 lng: pos.coords.longitude
             }
-            // mapService.addMarker(latlang)
             document.querySelector('.user-pos').innerText =
                 `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
         })
@@ -136,11 +136,6 @@ function onGetUserPos() {
             console.log('err!!!', err);
         })
 }
-
-// function onPanTo() {
-//     console.log('Panning the Map');
-//     mapService.panTo(35.6895, 139.6917);
-// }
 
 function onSearch(ev) {
     if (ev) ev.preventDefault()
@@ -153,6 +148,8 @@ function onSearch(ev) {
                 lng: location.lng
             }
             mapService.addMarker(pos, elInputSearch.value, gIcon)
+            flashMsg(`Location ${elInputSearch.value} added`)
+
         })
 }
 
@@ -164,4 +161,13 @@ function toggleModal() {
     document.querySelector('.modal').classList.toggle('fade-out')
     document.querySelector('.modal').classList.toggle('fade-in')
     document.body.classList.toggle("modal-open")
+}
+
+function flashMsg(msg) {
+    const el = document.querySelector('.user-msg')
+    el.innerText = msg
+    el.classList.add('open')
+    setTimeout(() => {
+        el.classList.remove('open')
+    }, 3000)
 }

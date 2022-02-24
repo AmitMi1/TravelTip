@@ -20,3 +20,10 @@
         margin: 0px;
     }
 }
+
+@media (max-width:640px) {
+    .modal{
+        width: 100vw;
+        height: 100vh;
+    }
+}
