@@ -18,12 +18,12 @@
     <section class="map-container flex column align-center">
         <div id="map" style="width: 60%; margin: 0 auto 30px; height: 400px;"></div>
         <div class="btn-container grid">
-            <img class="icon icon0" src="images/airports.png">
-            <img class="icon icon1" src="images/caution.png">
-            <img class="icon icon2" src="images/gas_stations.png">
-            <img class="icon icon3" src="images/parking.png">
-            <img class="icon icon4" src="images/info.png">
-            <img class="icon icon5" src="images/default.png">
+            <img id="images/airports.png" class="icon icon0" onclick="onIconClick(this)" src="images/airports.png">
+            <img id="images/caution.png" class="icon icon1" onclick="onIconClick(this)" src="images/caution.png">
+            <img id="images/gas_stations.png" class="icon icon2" onclick="onIconClick(this)" src="images/gas_stations.png">
+            <img id="images/parking.png" class="icon icon3" onclick="onIconClick(this)" src="images/parking.png">
+            <img id="images/info.png" class="icon icon4" onclick="onIconClick(this)" src="images/info.png">
+            <img id="images/default.png" class="icon icon5" onclick="onIconClick(this)" src="images/default.png">
             <button onclick="onGetUserPos()" class="btn-user-pos"><i
                     class="fa-solid fa-location-crosshairs"></i></button>
             <button onclick="onGetLocs();toggleScreen()" class="btn-get-locs"><i class="fa-solid fa-list"></i></button>

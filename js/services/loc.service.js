@@ -25,7 +25,7 @@ function getLocs() {
 }
 
 
-function createLoc(location, input, lat, lng, name) {
+function createLoc(location, input, lat, lng, name, icon) {
     var time = Date.now()
     if (lat && lng) {
         return Promise.resolve({
@@ -34,7 +34,8 @@ function createLoc(location, input, lat, lng, name) {
             lng,
             name,
             createdAt: time,
-            updatedAt: time
+            updatedAt: time,
+            icon
         })
     }
 
@@ -48,7 +49,7 @@ function createLoc(location, input, lat, lng, name) {
     })
 }
 
-function getLocByLatLng(lat, lng, name) {
+function getLocByLatLng(lat, lng, name, icon) {
     const locs = storageService.load(KEY) || []
     if (locs.length) {
         var idx = locs.findIndex(location => (location.lat === lat && location.lng === lng))
@@ -57,7 +58,7 @@ function getLocByLatLng(lat, lng, name) {
     return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GEOCODE_API}`)
         .then(res => res.data.results[0])
         .then(location => {
-            return createLoc(location, null, lat, lng, name)
+            return createLoc(location, null, lat, lng, name, icon)
         })
         .then(location => {
             locs.push(location)
@@ -65,7 +66,7 @@ function getLocByLatLng(lat, lng, name) {
         })
 }
 
-function getLocationByName(input) {
+function getLocationByName(input, icon) {
     const locs = storageService.load(KEY) || []
     if (locs.length) {
         var idx = locs.findIndex(location => location.name === input)
@@ -74,7 +75,7 @@ function getLocationByName(input) {
     return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${input}&key=${GEOCODE_API}`)
         .then(res => res.data.results[0])
         .then(location => {
-            return createLoc(location, input, null, null, null)
+            return createLoc(location, input, null, null, null, icon)
         })
         .then(location => {
             locs.push(location)

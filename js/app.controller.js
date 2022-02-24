@@ -2,7 +2,9 @@ import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 import { weatherService } from './services/weather.service.js'
 import { storageService } from './services/storage.service.js'
-
+export const cont = {
+    getIcon
+}
 
 
 
@@ -17,7 +19,9 @@ window.toggleScreen = toggleScreen
 window.onCopyLink = onCopyLink
 window.onDeleteLoc = onDeleteLoc
 window.onGoLoc = onGoLoc
+window.onIconClick = onIconClick
 
+var gIcon = "images/default.png"
 
 function onInit() {
     var result = loadByUrl();
@@ -30,6 +34,15 @@ function onInit() {
     } else {
         mapService.initMap(+result.lat, +result.lng)
     }
+}
+
+function getIcon() {
+    console.log(gIcon)
+    return gIcon
+}
+
+function onIconClick(elImg) {
+    gIcon = elImg.id
 }
 
 function loadByUrl() {
@@ -129,7 +142,7 @@ function onGetUserPos() {
 function onSearch(ev) {
     if (ev) ev.preventDefault()
     const elInputSearch = document.querySelector('input[name=search]')
-    locService.getLocationByName(elInputSearch.value)
+    locService.getLocationByName(elInputSearch.value, getIcon())
         .then(location => {
             mapService.panTo(location.lat, location.lng)
             const pos = {

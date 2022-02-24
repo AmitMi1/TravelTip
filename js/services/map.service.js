@@ -6,11 +6,12 @@ export const mapService = {
     deleteMarker
 }
 import { locService } from "./loc.service.js"
+import { cont } from "../app.controller.js"
 import { storageService } from "./storage.service.js"
 import { utilService } from "./util.service.js"
 
 const KEY = 'locationsDb'
-var gIcon = "images/default.png"
+
 var gMarkers = []
 var gMap
 var infoWindow
@@ -24,7 +25,6 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                     zoom: 15
                 })
             addMapListener()
-            addIconListener()
             locService.getLocs().then(locs => {
                 if (!locs.length) return
                 addMarkers(locs)
@@ -32,22 +32,13 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
         })
 }
 
-function addIconListener() {
-    var elIcons = document.querySelectorAll('.icon')
-    elIcons.forEach(icon => {
-        icon.addEventListener("click", function() {
-            gIcon = icon.src
-        })
-    })
-}
-
-function addMarker(loc, locName, loc.icon) {
+function addMarker(loc, locName, icon) {
     // console.log(loc)
     var marker = new google.maps.Marker({
         position: loc,
         map: gMap,
         title: locName,
-        icon: loc.icon
+        icon
     })
     gMarkers.push(marker)
     return marker
@@ -63,7 +54,7 @@ function addMarkers(locs) {
         addMarker({
             lat: loc.lat,
             lng: loc.lng,
-        }, loc.name, loc.icon)
+        }, loc.name, cont.getIcon())
     })
 }
 
@@ -98,11 +89,7 @@ function addMapListener() {
         var locationName = prompt('Enter location name')
         if (!locationName.trim()) return
             // gId = saveLocation(mapsMouseEvent.latLng, locationName)
-        locService.getLocByLatLng(
-            mapsMouseEvent.latLng.lat(),
-            mapsMouseEvent.latLng.lng(),
-            locationName
-        )
+        locService.getLocByLatLng(mapsMouseEvent.latLng.lat(), mapsMouseEvent.latLng.lng(), locationName, cont.getIcon())
         addMarker(mapsMouseEvent.latLng, locationName)
 
 
