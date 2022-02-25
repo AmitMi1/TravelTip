@@ -123,12 +123,13 @@ function renderWeather(weather, locId) {
         <section class="weather-title">
         <h3>${weather.name}</h3>
     <br>
+    <section class="weather-desc" flex align-center space-around">${weather.desc}
+<img class="weather-img" src="${img.src}" width="100px" height="100px"></section>
     <div>${weather.main.temp}℃ 
     <span>(feels like: ${weather.main.feels_like})</span>
     </div>
     </section>
-<section class="flex align-center space-around">${weather.desc}
-<img src="${img.src}" width="50px" height="50px"></section>
+
 <section><div>Degrees from ${weather.main.temp_min} to ${weather.main.temp_max}</div>
 <div>Wind ${weather.wind.speed}m/s</div>
 </section>
@@ -198,6 +199,7 @@ function onSearch(ev) {
             }
             mapService.addMarker(pos, elInputSearch.value, gIcon)
             flashMsg(`Location ${elInputSearch.value} added`)
+            document.querySelector('input[name = search]').value = ''
 
         })
 }
@@ -224,7 +226,7 @@ function flashMsg(msg) {
 function onDarkMode() {
     if (!gIsDark) {
         document.documentElement.style.setProperty('--clr4', '#d8d8d8d5')
-        document.documentElement.style.setProperty('--clr2', '#bbbbbb')
+        document.documentElement.style.setProperty('--clr2', '#d1d1d1')
         document.documentElement.style.setProperty('--clr1', '#1f1f1fcc')
         gIsDark = !gIsDark
         flashMsg('Dark mode off')

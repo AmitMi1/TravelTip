@@ -63,6 +63,15 @@
     text-transform: uppercase;
 }
 
+.weather-desc{
+    font-size: 27px;
+    line-height: 90px;
+}
+
+.weather-img{
+    margin: -40px 0;
+}
+
 .loc-info button{
     font-size: 25px;
     margin: 10px 5px 0px;
