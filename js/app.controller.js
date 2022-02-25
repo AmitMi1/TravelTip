@@ -123,7 +123,7 @@ function renderWeather(weather, locId) {
     </div>
     </section>
 <section class="flex align-center space-around">${weather.desc}
-<img src="http://openweathermap.org/img/wn/${weather.icon}@2x.png" width="50px" height="50px"></section>
+<img src="https://openweathermap.org/img/wn/${weather.icon}@2x.png" width="50px" height="50px"></section>
 <section><div>Degrees from ${weather.main.temp_min} to ${weather.main.temp_max}</div>
 <div>Wind ${weather.wind.speed}m/s</div>
 </section>
