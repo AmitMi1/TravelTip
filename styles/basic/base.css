@@ -35,4 +35,5 @@ html {
 
   button{
     color: #000000;
+    cursor: pointer;
   }

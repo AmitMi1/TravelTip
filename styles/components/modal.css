@@ -19,7 +19,6 @@
     background-color: rgba(0, 0, 0, 0);
     font-size: 30px;
     margin-top: 10px;
-    cursor: pointer;
 }
 
 .modal>button:hover {
@@ -70,7 +69,6 @@
     width: 40px;
     height: 40px;
     border-radius: 20%;
-    cursor: pointer;
 }
 
 .user-msg {
@@ -103,5 +101,4 @@
     width: 40px;
     height: 40px;
     border-radius: 20%;
-    cursor: pointer;
 }
