@@ -97,7 +97,7 @@ function onGetLocs() {
                 <span>Coords: ${loc.lat}</span>
                 <span>${loc.lng}</span>
                 </div>
-                <span>Created At:${moment(date).format("DD / MM / YYYY h:mm:ss")}</span>
+                <span>Created At: ${moment(date).format("DD / MM / YYYY h:mm:ss")}</span>
                 <div>
                 <button onclick="onDeleteLoc('${loc.id}')"><i class="fa-solid fa-ban"></i></button>
                 <button onclick="onGoLoc('${loc.id}');toggleScreen()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button> 
