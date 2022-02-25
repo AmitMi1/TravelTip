@@ -1,6 +1,6 @@
 .modal {
-    width: 70vw;
-    height: 75vh;
+    width: 400px;
+    height: 600px;
     background-color: var(--clr2);
     position: fixed;
     top: 50%;
@@ -61,6 +61,7 @@
     font-weight:bolder;
     font-size: 20px;
     margin-bottom: 10px;
+    text-transform: uppercase;
 }
 
 .loc-info button{
@@ -69,6 +70,7 @@
     width: 40px;
     height: 40px;
     border-radius: 20%;
+    cursor: pointer;
 }
 
 .user-msg {
@@ -84,4 +86,21 @@
 .user-msg.open {
     bottom: 10px;
     transition: bottom 0.5s;
+}
+
+.loc-info span{
+    line-height: 30px;
+}
+
+.weather{
+    font-size: 25px;
+}
+
+.btn-back, .btn-go{
+    font-size: 25px;
+    margin: 10px 5px 0px;
+    width: 40px;
+    height: 40px;
+    border-radius: 20%;
+    cursor: pointer;
 }

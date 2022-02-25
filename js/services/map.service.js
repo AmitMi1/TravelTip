@@ -26,23 +26,21 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                 zoom: 15
             })
             addMapListener()
-            // addIconListener()
             locService.getLocs().then(locs => {
                 if (!locs.length) return
-                // weatherService.setWeatherForAll()
                 addMarkers(locs)
             })
         })
 }
 
-function addIconListener() {
-    var elIcons = document.querySelectorAll('.icon')
-    elIcons.forEach(icon => {
-        icon.addEventListener("click", function () {
-            gIcon = icon.src
-        })
-    })
-}
+// function addIconListener() {
+//     var elIcons = document.querySelectorAll('.icon')
+//     elIcons.forEach(icon => {
+//         icon.addEventListener("click", function () {
+//             gIcon = icon.src
+//         })
+//     })
+// }
 
 function addMarker(loc, locName, icon) {
     var marker = new google.maps.Marker({
@@ -52,7 +50,6 @@ function addMarker(loc, locName, icon) {
         icon: icon
     })
     gMarkers.push(marker)
-    // weatherService.setWeatherForAll()
     return marker
 }
 
@@ -71,8 +68,8 @@ function addMarkers(locs) {
 }
 
 function panTo(lat, lng) {
-    var laLatLng = new google.maps.LatLng(lat, lng);
-    gMap.panTo(laLatLng);
+    var laLatLng = new google.maps.LatLng(lat, lng)
+    gMap.panTo(laLatLng)
 }
 
 function _connectGoogleApi() {

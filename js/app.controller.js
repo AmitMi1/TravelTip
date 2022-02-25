@@ -21,6 +21,7 @@ window.onCopyLink = onCopyLink
 window.onDeleteLoc = onDeleteLoc
 window.onGoLoc = onGoLoc
 window.onIconClick = onIconClick
+window.onShowWeather = onShowWeather
 
 
 
@@ -72,14 +73,20 @@ function getPosition() {
 
 
 function onGetLocs() {
-    var elLocList = document.querySelector('.loc-list')
+    var elModal = document.querySelector('.modal-container')
+    elModal.classList.remove('weather')
+    var strHTMLs = `
+    <h2>Locations</h2>
+    <ul class="clean-list loc-list">
+    </ul>`
     locService.getLocs()
         .then(locs => {
             if (!locs.length) {
-                elLocList.innerHTML = `<h4>No locations yet...</h4>`
+                elModal.innerHTML = `
+                <h2>Locations</h2>
+                <h4>No locations yet...</h4>`
                 return
             }
-            var strHTMLs = ''
             locs.forEach(loc => {
                 var date = new Date(loc.createdAt)
                 date.toDateString()
@@ -87,19 +94,46 @@ function onGetLocs() {
                 <div class="loc-info">
                 <div class="name">${loc.name}</div>
                 <div>
-                <span>${loc.lat}</span>
+                <span>Coords: ${loc.lat}</span>
                 <span>${loc.lng}</span>
                 </div>
-                <span>${date}</span>
+                <span>Created At:${moment(date).format("DD / MM / YYYY h:mm:ss")}</span>
                 <div>
                 <button onclick="onDeleteLoc('${loc.id}')"><i class="fa-solid fa-ban"></i></button>
                 <button onclick="onGoLoc('${loc.id}');toggleScreen()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button> 
+                <button onclick="onShowWeather('${loc.id}');"><i class="fa-solid fa-cloud-sun-rain"></i></button> 
                 </div>
                 </div>
                 `
             })
-            elLocList.innerHTML = strHTMLs
+            elModal.innerHTML = strHTMLs
         })
+}
+
+function renderWeather(weather, locId) {
+    // debugger
+    var elModal = document.querySelector('.modal-container')
+    elModal.classList.add('weather')
+    elModal.innerHTML = `
+    <section class="weather-title">
+    <h3>${weather.name}</h3>
+    <br>
+    <div>${weather.main.temp}℃ 
+    <span>(feels like: ${weather.main.feels_like})</span>
+    </div>
+    </section>
+<section class="flex align-center space-around">${weather.desc}
+<img src="http://openweathermap.org/img/wn/${weather.icon}@2x.png" width="50px" height="50px"></section>
+<section><div>Degrees from ${weather.main.temp_min} to ${weather.main.temp_max}</div>
+<div>Wind ${weather.wind.speed}m/s</div>
+</section>
+<section>${weather.main.humidity}% humidity</section>
+<div>
+<button onclick="onGetLocs()" class="btn-back"><i class="fa-solid fa-angles-left"></i></button>
+<button class="btn-go" onclick="onGoLoc('${locId}');toggleScreen()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button> 
+</div>
+`
+
 }
 
 
@@ -119,6 +153,13 @@ function onGoLoc(locId) {
     locService.getLocs().then(locs => {
         var locIdx = locs.findIndex(loc => loc.id === locId)
         mapService.panTo(locs[locIdx])
+    })
+}
+
+function onShowWeather(locId) {
+    locService.getLocs().then(locs => {
+        var locIdx = locs.findIndex(loc => loc.id === locId)
+        weatherService.getWeather(locs[locIdx]).then(weather => renderWeather(weather, locId))
     })
 }
 
