@@ -1,7 +1,6 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 import { weatherService } from './services/weather.service.js'
-import { storageService } from './services/storage.service.js'
 export const cont = {
     getIcon,
     flashMsg
@@ -9,6 +8,7 @@ export const cont = {
 
 
 var gIcon = "images/default.png"
+var gIsDark = false
 
 
 window.onload = onInit
@@ -22,6 +22,7 @@ window.onDeleteLoc = onDeleteLoc
 window.onGoLoc = onGoLoc
 window.onIconClick = onIconClick
 window.onShowWeather = onShowWeather
+window.onDarkMode = onDarkMode
 
 
 
@@ -44,6 +45,7 @@ function getIcon() {
 
 function onIconClick(elImg) {
     gIcon = elImg.id
+    flashMsg('Marker picked')
 }
 
 function loadByUrl() {
@@ -114,16 +116,19 @@ function renderWeather(weather, locId) {
     // debugger
     var elModal = document.querySelector('.modal-container')
     elModal.classList.add('weather')
-    elModal.innerHTML = `
-    <section class="weather-title">
-    <h3>${weather.name}</h3>
+    elModal.innerHTML = ''
+    var img = new Image
+    img.onload = (() => {
+        elModal.innerHTML = `
+        <section class="weather-title">
+        <h3>${weather.name}</h3>
     <br>
     <div>${weather.main.temp}℃ 
     <span>(feels like: ${weather.main.feels_like})</span>
     </div>
     </section>
 <section class="flex align-center space-around">${weather.desc}
-<img src="https://openweathermap.org/img/wn/${weather.icon}@2x.png" width="50px" height="50px"></section>
+<img src="${img.src}" width="50px" height="50px"></section>
 <section><div>Degrees from ${weather.main.temp_min} to ${weather.main.temp_max}</div>
 <div>Wind ${weather.wind.speed}m/s</div>
 </section>
@@ -132,7 +137,8 @@ function renderWeather(weather, locId) {
 <button onclick="onGetLocs()" class="btn-back"><i class="fa-solid fa-angles-left"></i></button>
 <button class="btn-go" onclick="onGoLoc('${locId}');toggleScreen()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button> 
 </div>
-`
+`})
+    img.src = `https://openweathermap.org/img/wn/${weather.icon}@2x.png`
 
 }
 
@@ -173,6 +179,7 @@ function onGetUserPos() {
             }
             document.querySelector('.user-pos').innerText =
                 `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
+            flashMsg('Current location')
         })
         .catch(err => {
             console.log('err!!!', err);
@@ -212,4 +219,20 @@ function flashMsg(msg) {
     setTimeout(() => {
         el.classList.remove('open')
     }, 3000)
+}
+
+function onDarkMode() {
+    if (!gIsDark) {
+        document.documentElement.style.setProperty('--clr4', '#d8d8d8d5')
+        document.documentElement.style.setProperty('--clr2', '#bbbbbb')
+        document.documentElement.style.setProperty('--clr1', '#1f1f1fcc')
+        gIsDark = !gIsDark
+        flashMsg('Dark mode off')
+    } else {
+        document.documentElement.style.setProperty('--clr4', '#3a3a3a')
+        document.documentElement.style.setProperty('--clr2', '#313131')
+        document.documentElement.style.setProperty('--clr1', '#cacaca')
+        gIsDark = !gIsDark
+        flashMsg('Dark mode on')
+    }
 }

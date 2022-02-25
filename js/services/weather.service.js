@@ -1,9 +1,5 @@
-import { utilService } from './util.service.js'
-import { locService } from './loc.service.js'
-
 export const weatherService = {
     getWeather: getWeatherForLocation,
-    // setWeatherForAll
 }
 
 const KEY = '5a14a6a860e9d68fa91c90933c51e1e3'
@@ -24,17 +20,3 @@ function getWeatherForLocation(location) {
         .catch('Problem with API')
 }
 
-// function setWeatherForAll() {
-//     locService.getLocs()
-//         .then(locs => {
-//             locs.forEach(loc => getWeatherForLocation(loc))
-//                 .then(locs => {
-//                     locService.saveToLocationDb(locs)
-//                     return locs
-//                 })
-//         }
-
-//         )
-// }
-
-//WEATHER API 404 DOESNT WORK PLEASE HELP

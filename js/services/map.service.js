@@ -7,12 +7,8 @@ export const mapService = {
 }
 import { locService } from "./loc.service.js"
 import { cont } from "../app.controller.js"
-import { storageService } from "./storage.service.js"
-import { utilService } from "./util.service.js"
-import { weatherService } from "./weather.service.js"
 
 const KEY = 'locationsDb'
-// var gIcon = "images/default.png"
 var gMarkers = []
 var gMap
 var infoWindow
@@ -32,15 +28,6 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
             })
         })
 }
-
-// function addIconListener() {
-//     var elIcons = document.querySelectorAll('.icon')
-//     elIcons.forEach(icon => {
-//         icon.addEventListener("click", function () {
-//             gIcon = icon.src
-//         })
-//     })
-// }
 
 function addMarker(loc, locName, icon) {
     var marker = new google.maps.Marker({
