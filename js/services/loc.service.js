@@ -6,7 +6,8 @@ export const locService = {
     createLoc,
     saveToLocationDb
 }
-const GEOCODE_API = 'AIzaSyCylbi9G13oxtzsUPHKLrXG_cDvKX1jjFU'
+// const GEOCODE_API = 'AIzaSyCylbi9G13oxtzsUPHKLrXG_cDvKX1jjFU'
+const GEOCODE_API = 'AIzaSyA0lca-KL1iawb4v5Fx-O2Y7hJ0RPFRmR0'
 const KEY = 'locationsDb'
 
 
@@ -57,8 +58,8 @@ function getLocByLatLng(lat, lng, name, icon) {
         if (idx >= 0) return Promise.resolve(locs[idx])
     }
     return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GEOCODE_API}`)
-        .then(res => res.data.results[0])
-        .then(location => {
+        .then(res => {
+            const location = res.data.results[0]
             return createLoc(location, null, lat, lng, name, icon)
         })
         .then(location => {
